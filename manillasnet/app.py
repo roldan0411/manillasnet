@@ -283,7 +283,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .hero::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.2) 0%,transparent 70%);animation:float 6s ease-in-out infinite}
 .hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.15) 0%,transparent 70%);animation:float 8s ease-in-out infinite reverse}
 @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.1)}}
-.hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;margin-bottom:1rem;font-weight:900;position:relative;z-index:1;color:#ffffff;text-shadow:0 4px 25px rgba(0,0,0,0.35),0 2px 10px rgba(0,0,0,0.25),0 0 40px rgba(255,255,255,0.15);letter-spacing:1.5px;line-height:1.1}
+.hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;margin-bottom:1rem;font-weight:900;position:relative;z-index:2;color:#fff !important;-webkit-text-fill-color:#fff !important;background:none !important;-webkit-background-clip:initial !important;background-clip:initial !important;text-shadow:0 2px 4px rgba(0,0,0,0.3),0 4px 15px rgba(0,0,0,0.2);letter-spacing:1.5px;line-height:1.1;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.15))}
 .hero p{font-size:1.3rem;opacity:.98;position:relative;z-index:1;font-weight:400;color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,0.3)}
 .hero-badge{display:inline-block;background:rgba(255,255,255,0.25);padding:.5rem 1.5rem;border-radius:50px;margin-bottom:1.5rem;font-size:.9rem;font-weight:600;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.4);color:#ffffff;text-shadow:0 1px 3px rgba(0,0,0,0.2);position:relative;z-index:1}
 
