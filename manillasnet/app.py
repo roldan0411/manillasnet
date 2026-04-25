@@ -85,7 +85,7 @@ def init_db():
     with app.app_context():
         db.create_all()
         if not User.query.filter_by(username='admin').first():
-            db.session.add(User(username='admin', password=generate_password_hash('Admin@2026'), name='Administrador', role='admin'))
+            db.session.add(User(username='admin', password=generate_password_hash('Roldan0411$'), name='Administrador', role='admin'))
         if Product.query.count() == 0:
             productos = [
                 ('Reloj Elegante Oro','Reloj de pulsera con acabados dorados de lujo. Resistente al agua, correa ajustable de acero inoxidable. Perfecto para ocasiones elegantes o uso diario. Incluye caja de regalo premium.','Relojes',299.99,15,'RLJ001','https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600'),
