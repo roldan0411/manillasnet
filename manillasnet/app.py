@@ -1,6 +1,6 @@
 """
 🌸 MANILLASNET - Tienda Futurista de Accesorios
-👤 admin / Admin@2026
+👤 admin / Admin@2026 (cámbiala desde la web)
 """
 import sys, subprocess
 
@@ -85,7 +85,7 @@ def init_db():
     with app.app_context():
         db.create_all()
         if not User.query.filter_by(username='admin').first():
-            db.session.add(User(username='admin', password=generate_password_hash('Roldan0411$'), name='Administrador', role='admin'))
+            db.session.add(User(username='admin', password=generate_password_hash('Admin@2026'), name='Administrador', role='admin'))
         if Product.query.count() == 0:
             productos = [
                 ('Reloj Elegante Oro','Reloj de pulsera con acabados dorados de lujo. Resistente al agua, correa ajustable de acero inoxidable. Perfecto para ocasiones elegantes o uso diario. Incluye caja de regalo premium.','Relojes',299.99,15,'RLJ001','https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600'),
@@ -111,6 +111,26 @@ def login():
         token = create_access_token(identity=str(user.id), additional_claims={'role': user.role})
         return jsonify({'token': token, 'user': {'id': user.id, 'username': user.username, 'name': user.name, 'role': user.role}})
     return jsonify({'error': 'Credenciales inválidas'}), 401
+
+@app.route('/api/auth/change-password', methods=['POST'])
+@jwt_required()
+def change_password():
+    data = request.json
+    user_id = int(get_jwt_identity())
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'Usuario no encontrado'}), 404
+    current = data.get('current_password', '')
+    new = data.get('new_password', '')
+    if not check_password_hash(user.password, current):
+        return jsonify({'error': 'La contraseña actual es incorrecta'}), 401
+    if len(new) < 8:
+        return jsonify({'error': 'La nueva contraseña debe tener al menos 8 caracteres'}), 400
+    if current == new:
+        return jsonify({'error': 'La nueva contraseña debe ser diferente a la actual'}), 400
+    user.password = generate_password_hash(new)
+    db.session.commit()
+    return jsonify({'message': 'Contraseña actualizada exitosamente'})
 
 @app.route('/api/products', methods=['GET'])
 def get_products():
@@ -263,9 +283,9 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .hero::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.2) 0%,transparent 70%);animation:float 6s ease-in-out infinite}
 .hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,0.15) 0%,transparent 70%);animation:float 8s ease-in-out infinite reverse}
 @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.1)}}
-.hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;margin-bottom:1rem;font-weight:900;position:relative;z-index:1;text-shadow:0 2px 20px rgba(0,0,0,0.1)}
-.hero p{font-size:1.3rem;opacity:.95;position:relative;z-index:1;font-weight:300}
-.hero-badge{display:inline-block;background:rgba(255,255,255,0.2);padding:.5rem 1.5rem;border-radius:50px;margin-bottom:1rem;font-size:.9rem;font-weight:500;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3)}
+.hero h1{font-family:'Playfair Display',serif;font-size:3.5rem;margin-bottom:1rem;font-weight:900;position:relative;z-index:1;color:#ffffff;text-shadow:0 4px 25px rgba(0,0,0,0.35),0 2px 10px rgba(0,0,0,0.25),0 0 40px rgba(255,255,255,0.15);letter-spacing:1.5px;line-height:1.1}
+.hero p{font-size:1.3rem;opacity:.98;position:relative;z-index:1;font-weight:400;color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,0.3)}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.25);padding:.5rem 1.5rem;border-radius:50px;margin-bottom:1.5rem;font-size:.9rem;font-weight:600;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.4);color:#ffffff;text-shadow:0 1px 3px rgba(0,0,0,0.2);position:relative;z-index:1}
 
 .filters{background:var(--glass);backdrop-filter:blur(20px);padding:1.5rem;border-radius:25px;margin-bottom:2rem;box-shadow:0 10px 40px rgba(255,77,148,0.1);display:flex;gap:1rem;flex-wrap:wrap;border:1px solid rgba(255,255,255,0.5)}
 .filters input,.filters select{padding:.9rem 1.3rem;border:2px solid rgba(255,77,148,0.15);border-radius:15px;font-size:1rem;flex:1;min-width:200px;background:rgba(255,255,255,0.8);transition:all .3s;font-family:'Poppins',sans-serif}
@@ -273,9 +293,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}
 .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:25px;overflow:hidden;box-shadow:0 10px 40px rgba(255,77,148,0.1);transition:all .4s cubic-bezier(0.4,0,0.2,1);cursor:pointer;border:1px solid rgba(255,255,255,0.5);position:relative}
-.card::before{content:'';position:absolute;inset:0;border-radius:25px;padding:2px;background:var(--gradient);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.4s}
 .card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 25px 60px rgba(255,77,148,0.3)}
-.card:hover::before{opacity:1}
 .card-img-wrap{position:relative;overflow:hidden;height:260px;background:linear-gradient(135deg,var(--pink-4),var(--pink-3))}
 .card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .card:hover img{transform:scale(1.1)}
@@ -307,7 +325,6 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .modal-content input:focus,.modal-content select:focus,.modal-content textarea:focus{outline:none;border-color:var(--pink-1);box-shadow:0 0 0 4px rgba(255,77,148,0.1)}
 .modal-content textarea{min-height:80px;resize:vertical}
 
-/* Modal de detalle del producto */
 .modal-detail{max-width:900px !important}
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 .detail-img{width:100%;height:400px;object-fit:cover;border-radius:20px;box-shadow:0 15px 40px rgba(255,77,148,0.2)}
@@ -340,6 +357,10 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .payment-option.active{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(255,77,148,0.3)}
 .payment-icon{font-size:2rem;display:block;margin-bottom:.5rem}
 
+.password-tips{background:rgba(255,77,148,0.08);padding:1rem;border-radius:12px;margin-bottom:1rem;font-size:.85rem;color:#666;border:1px solid rgba(255,77,148,0.15)}
+.password-tips strong{color:var(--pink-1);display:block;margin-bottom:.3rem}
+.password-tips ul{margin:.3rem 0 0 1.2rem;line-height:1.6}
+
 .dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-bottom:2rem}
 .stat{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);padding:1.8rem;border-radius:20px;box-shadow:0 10px 30px rgba(255,77,148,0.1);border:1px solid rgba(255,255,255,0.5);transition:.3s;position:relative;overflow:hidden}
 .stat:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,77,148,0.2)}
@@ -363,6 +384,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .badge-low{background:#ff4757;color:#fff}
 .alert{padding:1rem;border-radius:15px;margin-bottom:1rem;font-weight:500}
 .alert-error{background:rgba(255,71,87,0.1);color:#ff4757;border:1px solid rgba(255,71,87,0.3)}
+.alert-success{background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.3)}
 #cartBadge{background:#fff;color:var(--pink-1);border-radius:50%;padding:.15rem .5rem;font-size:.75rem;margin-left:.3rem;font-weight:700;min-width:20px;display:inline-block;text-align:center}
 
 section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2.5rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
@@ -391,6 +413,7 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
     <button onclick="showView('shop')">🛍️ Tienda</button>
     <button onclick="showCart()">🛒<span id="cartBadge">0</span></button>
     <button id="adminBtn" class="hidden" onclick="showView('admin')">⚙️ Panel</button>
+    <button id="changePassBtn" class="hidden" onclick="openChangePassword()">🔐 Contraseña</button>
     <button id="loginBtn" onclick="showLogin()">🔑 Ingresar</button>
     <button id="logoutBtn" class="hidden" onclick="logout()">🚪 Salir</button>
     <span id="userLabel"></span>
@@ -440,7 +463,6 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
   </section>
 </div>
 
-<!-- Modal Detalle de Producto -->
 <div class="modal" id="detailModal">
   <div class="modal-content modal-detail">
     <div id="detailContent"></div>
@@ -448,7 +470,6 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
   </div>
 </div>
 
-<!-- Modal Login -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
     <h2>🔑 Iniciar Sesión</h2>
@@ -461,7 +482,27 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
   </div>
 </div>
 
-<!-- Modal Carrito -->
+<div class="modal" id="changePassModal">
+  <div class="modal-content">
+    <h2>🔐 Cambiar Contraseña</h2>
+    <div id="changePassAlert"></div>
+    <input type="password" id="currentPass" placeholder="🔑 Contraseña actual">
+    <input type="password" id="newPass" placeholder="✨ Nueva contraseña (mín. 8 caracteres)">
+    <input type="password" id="confirmPass" placeholder="✅ Confirmar nueva contraseña">
+    <div class="password-tips">
+      <strong>💡 Consejos de seguridad:</strong>
+      <ul>
+        <li>Mínimo 8 caracteres</li>
+        <li>Combina mayúsculas y minúsculas</li>
+        <li>Incluye números y símbolos (!@#$)</li>
+        <li>Evita datos personales</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="changePassword()">🔒 Actualizar Contraseña</button>
+    <button class="btn btn-secondary" style="margin-top:.5rem" onclick="closeModal('changePassModal')">Cancelar</button>
+  </div>
+</div>
+
 <div class="modal" id="cartModal">
   <div class="modal-content">
     <h2>🛒 Tu Carrito</h2>
@@ -484,7 +525,6 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
   </div>
 </div>
 
-<!-- Modal Producto -->
 <div class="modal" id="productModal">
   <div class="modal-content">
     <h2 id="productModalTitle">Producto</h2>
@@ -509,7 +549,6 @@ section h1{font-family:'Playfair Display',serif;margin-bottom:1.5rem;font-size:2
   </div>
 </div>
 
-<!-- Modal Usuario -->
 <div class="modal" id="userModal">
   <div class="modal-content">
     <h2>👤 Nuevo Usuario</h2>
@@ -547,11 +586,13 @@ function updateUI(){
   if(currentUser){
     document.getElementById('loginBtn').classList.add('hidden');
     document.getElementById('logoutBtn').classList.remove('hidden');
+    document.getElementById('changePassBtn').classList.remove('hidden');
     document.getElementById('userLabel').textContent='✨ '+currentUser.name;
     document.getElementById('adminBtn').classList.remove('hidden');
   } else {
     document.getElementById('loginBtn').classList.remove('hidden');
     document.getElementById('logoutBtn').classList.add('hidden');
+    document.getElementById('changePassBtn').classList.add('hidden');
     document.getElementById('userLabel').textContent='';
     document.getElementById('adminBtn').classList.add('hidden');
   }
@@ -586,6 +627,48 @@ function logout(){
   updateUI(); showView('shop');
 }
 
+function openChangePassword(){
+  document.getElementById('currentPass').value='';
+  document.getElementById('newPass').value='';
+  document.getElementById('confirmPass').value='';
+  document.getElementById('changePassAlert').innerHTML='';
+  document.getElementById('changePassModal').classList.add('active');
+}
+
+async function changePassword(){
+  const current=document.getElementById('currentPass').value;
+  const newP=document.getElementById('newPass').value;
+  const confirm=document.getElementById('confirmPass').value;
+  const alertBox=document.getElementById('changePassAlert');
+  if(!current||!newP||!confirm){
+    alertBox.innerHTML='<div class="alert alert-error">⚠️ Completa todos los campos</div>';
+    return;
+  }
+  if(newP.length<8){
+    alertBox.innerHTML='<div class="alert alert-error">⚠️ La contraseña debe tener al menos 8 caracteres</div>';
+    return;
+  }
+  if(newP!==confirm){
+    alertBox.innerHTML='<div class="alert alert-error">⚠️ Las contraseñas nuevas no coinciden</div>';
+    return;
+  }
+  if(current===newP){
+    alertBox.innerHTML='<div class="alert alert-error">⚠️ La nueva contraseña debe ser diferente a la actual</div>';
+    return;
+  }
+  try{
+    await api('/auth/change-password',{method:'POST',body:JSON.stringify({
+      current_password:current,
+      new_password:newP
+    })});
+    closeModal('changePassModal');
+    showToast('🔐 ¡Contraseña actualizada exitosamente!');
+    setTimeout(()=>{ logout(); window.alert('Por seguridad, inicia sesión con tu nueva contraseña'); },1500);
+  }catch(e){
+    alertBox.innerHTML='<div class="alert alert-error">❌ '+e.message+'</div>';
+  }
+}
+
 async function loadProducts(){
   products=await api('/products');
   const cats=[...new Set(products.map(p=>p.category))];
@@ -597,7 +680,7 @@ async function loadProducts(){
 function renderProducts(){
   const search=document.getElementById('searchInput').value.toLowerCase();
   const cat=document.getElementById('categoryFilter').value;
-  const filtered=products.filter(p=>(!cat||p.category===cat)&&(!search||p.name.toLowerCase().includes(search)||p.description.toLowerCase().includes(search)));
+  const filtered=products.filter(p=>(!cat||p.category===cat)&&(!search||p.name.toLowerCase().includes(search)||(p.description||'').toLowerCase().includes(search)));
   if(filtered.length===0){
     document.getElementById('productsGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#888"><h3>😔 No se encontraron productos</h3></div>';
     return;
@@ -681,7 +764,7 @@ function addToCartFromDetail(id){
 function showToast(msg){
   const t=document.createElement('div');
   t.textContent=msg;
-  t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ff4d94,#c44bce);color:#fff;padding:1rem 2rem;border-radius:50px;box-shadow:0 10px 30px rgba(255,77,148,0.4);z-index:2000;font-weight:600;animation:slideUp .3s';
+  t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ff4d94,#c44bce);color:#fff;padding:1rem 2rem;border-radius:50px;box-shadow:0 10px 30px rgba(255,77,148,0.4);z-index:2000;font-weight:600';
   document.body.appendChild(t);
   setTimeout(()=>t.remove(),2500);
 }
