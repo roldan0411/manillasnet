@@ -489,7 +489,7 @@ HTML += r"""
   <section id="shopView">
     <div class="hero">
       <div class="hero-content">
-        <div class="hero-badge">✨ Colección Exclusiva 2026</div>
+        <div class="hero-badge">✨ Colección 2026</div>
         <div class="hero-title-wrap">
           <h1>Accesorios que Enamoran</h1>
         </div>
