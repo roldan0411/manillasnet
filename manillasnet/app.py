@@ -624,7 +624,6 @@ HTML += r"""
       <h3>💳 Métodos de Pago</h3>
       <p><strong>Bancolombia:</strong> Ahorros 020-000190-93</p>
       <p><strong>Titular:</strong> Nora Torres</p>
-      <p><strong>C.C.:</strong> 1097094688</p>
       <p><strong>Nequi:</strong> 312 422 3657</p>
     </div>
     <div class="footer-col">
@@ -694,7 +693,7 @@ HTML += r"""
       <strong>💳 Datos para transferencia:</strong>
       <p>• Bancolombia Ahorros: <code>02000019093</code></p>
       <p>• Nequi: <code>312 422 3657</code></p>
-      <p>• Titular: Nora Torres (C.C. 1097094688)</p>
+      <p>• Titular: Nora Torres</p>
       <p style="margin-top:.5rem">📦 Envío: $8.000 - $25.000 según ciudad</p>
     </div>
     <button class="btn btn-wa" onclick="checkoutWhatsApp()">💬 Pedir por WhatsApp</button>
