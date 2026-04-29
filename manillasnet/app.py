@@ -285,6 +285,7 @@ radial-gradient(circle at 50% 50%,rgba(255,143,189,0.12) 0%,transparent 50%);
 @keyframes bgFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-5%,5%) rotate(180deg)}}
 
 #loader{position:fixed;inset:0;background:linear-gradient(135deg,#ff4f9a 0%,#7b1235 55%,#3d071b 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;transition:opacity .5s}
+#loader.hidden{opacity:0;pointer-events:none}
 .loader-logo{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;font-weight:900;animation:pulse 1.5s infinite;text-shadow:0 4px 20px rgba(0,0,0,0.3)}
 .loader-sub{color:#fff;margin-top:1rem;opacity:.9;letter-spacing:3px;font-size:.9rem}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.9}}
@@ -964,7 +965,8 @@ function addToCartFromDetail(id){
 function showToast(msg){
   const t=document.createElement('div');
   t.textContent=msg;
-t.style.cssText='position:fixed;bottom:6rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ff4f9a,#7b1235);  document.body.appendChild(t);
+  t.style.cssText='position:fixed;bottom:6rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ff4f9a,#7b1235);color:#fff;padding:1rem 2rem;border-radius:50px;box-shadow:0 10px 30px rgba(255,77,148,0.4);z-index:2000;font-weight:600';
+  document.body.appendChild(t);
   setTimeout(function(){t.remove()},2500);
 }
 
