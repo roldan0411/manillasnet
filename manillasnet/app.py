@@ -254,17 +254,33 @@ HTML = r"""<!DOCTYPE html>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 html{scroll-behavior:smooth}
 :root{
-  --pink-1:#ff4d94;--pink-2:#ff80b5;--pink-3:#ffb3d1;--pink-4:#ffe0ec;
-  --dark:#1a0a15;--gray:#2a1a24;--light:#fff5f9;
-  --gradient:linear-gradient(135deg,#ff4d94 0%,#c44bce 50%,#7a3fb8 100%);
-  --gradient-2:linear-gradient(135deg,#ff80b5 0%,#ff4d94 100%);
-  --glass:rgba(255,255,255,0.7);--shadow:0 20px 60px rgba(255,77,148,0.2);
+  --pink-1:#ff4f9a;
+  --pink-2:#ff8fbd;
+  --pink-3:#ffc2dc;
+  --pink-4:#ffe8f2;
+
+  --wine-1:#7b1235;
+  --wine-2:#5a0d28;
+  --wine-3:#3d071b;
+
+  --white:#ffffff;
+  --soft-white:#fff7fb;
+  --dark:#1b0711;
+  --gray:#2a101b;
+  --light:#fff7fb;
+
+  --gradient:linear-gradient(135deg,#ff4f9a 0%,#7b1235 55%,#3d071b 100%);
+  --gradient-2:linear-gradient(135deg,#ff8fbd 0%,#7b1235 100%);
+  --gradient-soft:linear-gradient(135deg,#ffe8f2 0%,#ffffff 50%,#f8d6e4 100%);
+
+  --glass:rgba(255,255,255,0.78);
+  --shadow:0 20px 60px rgba(123,18,53,0.22);
 }
-body{background:linear-gradient(135deg,#ffe0ec 0%,#fff5f9 50%,#ffe0ec 100%);color:var(--dark);min-height:100vh;overflow-x:hidden}
+body{background:linear-gradient(135deg,#ffe8f2 0%,#ffffff 50%,#f8d6e4 100%);color:var(--dark);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:
-  radial-gradient(circle at 20% 30%,rgba(255,77,148,0.15) 0%,transparent 40%),
-  radial-gradient(circle at 80% 70%,rgba(196,75,206,0.12) 0%,transparent 40%),
-  radial-gradient(circle at 50% 50%,rgba(255,128,181,0.1) 0%,transparent 50%);
+radial-gradient(circle at 20% 30%,rgba(255,79,154,0.16) 0%,transparent 40%),
+radial-gradient(circle at 80% 70%,rgba(123,18,53,0.14) 0%,transparent 40%),
+radial-gradient(circle at 50% 50%,rgba(255,143,189,0.12) 0%,transparent 50%);
   animation:bgFloat 20s ease infinite;z-index:-1}
 @keyframes bgFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-5%,5%) rotate(180deg)}}
 
@@ -274,7 +290,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .loader-sub{color:#fff;margin-top:1rem;opacity:.9;letter-spacing:3px;font-size:.9rem}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.9}}
 
-.promo-banner{background:linear-gradient(90deg,#ff4d94,#c44bce,#7a3fb8,#c44bce,#ff4d94);background-size:200% 100%;animation:promoSlide 4s linear infinite;color:#fff;text-align:center;padding:.7rem 1rem;font-weight:600;font-size:.9rem;position:relative;z-index:101;text-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.promo-banner{background:linear-gradient(90deg,#ff4f9a,#7b1235,#3d071b,#7b1235,#ff4f9a);
 @keyframes promoSlide{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
 .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,77,148,0.2);box-shadow:0 4px 20px rgba(255,77,148,0.08)}
@@ -431,7 +447,7 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 .wa-float:hover{transform:scale(1.1) rotate(10deg);box-shadow:0 15px 40px rgba(37,211,102,0.7)}
 @keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-footer{background:linear-gradient(135deg,#1a0a15 0%,#2a1528 50%,#1a0a15 100%);color:#fff;padding:4rem 2rem 2rem;margin-top:4rem;border-radius:40px 40px 0 0;position:relative;overflow:hidden}
+footer{background:linear-gradient(135deg,#3d071b 0%,#5a0d28 50%,#1b0711 100%);
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
 .footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2.5rem;margin-bottom:2rem}
 .footer-col h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
