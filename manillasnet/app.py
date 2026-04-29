@@ -290,8 +290,7 @@ radial-gradient(circle at 50% 50%,rgba(255,143,189,0.12) 0%,transparent 50%);
 .loader-sub{color:#fff;margin-top:1rem;opacity:.9;letter-spacing:3px;font-size:.9rem}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.9}}
 
-.promo-banner{background:linear-gradient(90deg,#ff4f9a,#7b1235,#3d071b,#7b1235,#ff4f9a);
-@keyframes promoSlide{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.promo-banner{background:linear-gradient(90deg,#ff4f9a,#7b1235,#3d071b,#7b1235,#ff4f9a);background-size:200% 100%;animation:promoSlide 4s linear infinite;color:#fff;text-align:center;padding:.7rem 1rem;font-weight:600;font-size:.9rem;position:relative;z-index:101;text-shadow:0 1px 3px rgba(0,0,0,0.2)}@keyframes promoSlide{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
 .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,77,148,0.2);box-shadow:0 4px 20px rgba(255,77,148,0.08)}
 .logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
@@ -447,8 +446,7 @@ radial-gradient(circle at 50% 50%,rgba(255,143,189,0.12) 0%,transparent 50%);
 .wa-float:hover{transform:scale(1.1) rotate(10deg);box-shadow:0 15px 40px rgba(37,211,102,0.7)}
 @keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-footer{background:linear-gradient(135deg,#3d071b 0%,#5a0d28 50%,#1b0711 100%);
-footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
+footer{background:linear-gradient(135deg,#3d071b 0%,#5a0d28 50%,#1b0711 100%);color:#fff;padding:4rem 2rem 2rem;margin-top:4rem;border-radius:40px 40px 0 0;position:relative;overflow:hidden}footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
 .footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2.5rem;margin-bottom:2rem}
 .footer-col h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .footer-col p,.footer-col a{color:rgba(255,255,255,0.75);line-height:1.8;font-size:.9rem;text-decoration:none;display:block;transition:.3s;cursor:pointer}
