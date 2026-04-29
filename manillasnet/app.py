@@ -284,12 +284,10 @@ radial-gradient(circle at 50% 50%,rgba(255,143,189,0.12) 0%,transparent 50%);
   animation:bgFloat 20s ease infinite;z-index:-1}
 @keyframes bgFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-5%,5%) rotate(180deg)}}
 
-#loader{position:fixed;inset:0;background:linear-gradient(135deg,#ff4f9a 0%,#7b1235 55%,#3d071b 100%);
-#loader.hidden{opacity:0;pointer-events:none}
+#loader{position:fixed;inset:0;background:linear-gradient(135deg,#ff4f9a 0%,#7b1235 55%,#3d071b 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;transition:opacity .5s}
 .loader-logo{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;font-weight:900;animation:pulse 1.5s infinite;text-shadow:0 4px 20px rgba(0,0,0,0.3)}
 .loader-sub{color:#fff;margin-top:1rem;opacity:.9;letter-spacing:3px;font-size:.9rem}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.9}}
-
 .promo-banner{background:linear-gradient(90deg,#ff4f9a,#7b1235,#3d071b,#7b1235,#ff4f9a);background-size:200% 100%;animation:promoSlide 4s linear infinite;color:#fff;text-align:center;padding:.7rem 1rem;font-weight:600;font-size:.9rem;position:relative;z-index:101;text-shadow:0 1px 3px rgba(0,0,0,0.2)}@keyframes promoSlide{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
 .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,77,148,0.2);box-shadow:0 4px 20px rgba(255,77,148,0.08)}
